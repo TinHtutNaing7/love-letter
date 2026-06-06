@@ -148,7 +148,6 @@
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     padding: 2rem;
-    display: none;
   }
 
   .envelope-stage {
@@ -272,7 +271,6 @@
     min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
     padding: 4rem 2rem;
-    display: none;
   }
 
   .letter-paper {
@@ -369,7 +367,6 @@
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     padding: 4rem 2rem;
-    display: none;
   }
 
   .gallery-heading {
@@ -454,7 +451,6 @@
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     padding: 4rem 2rem; text-align: center;
-    display: none;
   }
 
   .countdown-title {
@@ -603,6 +599,9 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  /* ── Scene visibility — use class not inline style ── */
+  .scene-hidden { display: none !important; }
+
   /* ── Transition overlay ── */
   #overlay {
     position: fixed; inset: 0;
@@ -670,7 +669,7 @@
 <!-- ════════════════════════════
      SCENE 2: ENVELOPE
 ════════════════════════════ -->
-<section id="scene-envelope">
+<section id="scene-envelope" class="scene-hidden">
   <div class="envelope-stage">
     <div class="envelope-wrap" id="envWrap">
       <div class="env-face">
@@ -692,7 +691,7 @@
 <!-- ════════════════════════════
      SCENE 3: LETTER
 ════════════════════════════ -->
-<section id="scene-letter">
+<section id="scene-letter" class="scene-hidden">
   <div class="letter-paper">
     <div class="letter-lines"></div>
     <p class="letter-date" id="lDate"></p>
@@ -720,7 +719,7 @@
 <!-- ════════════════════════════
      SCENE 4: GALLERY
 ════════════════════════════ -->
-<section id="scene-gallery">
+<section id="scene-gallery" class="scene-hidden">
   <h2 class="gallery-heading">Our Story</h2>
   <p class="gallery-sub">every chapter, treasured forever</p>
   <p style="font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.2em; color:rgba(212,168,67,0.5); text-align:center; margin-top:-2.5rem; margin-bottom:3rem;">
@@ -746,7 +745,7 @@
 <!-- ════════════════════════════
      SCENE 5: COUNTDOWN + SHARE
 ════════════════════════════ -->
-<section id="scene-final">
+<section id="scene-final" class="scene-hidden">
   <p class="countdown-title">Together for</p>
   <div class="countdown-grid">
     <div class="countdown-unit">
@@ -806,9 +805,9 @@ const CONFIG = {
     { img: 'photos/photo2.jpg', emoji: '😘', caption: 'Our Second Date At SHWEDAGON PAGODA' },
     { img: 'photos/photo3.jpg', emoji: '🥰', caption: 'Fourth Date At the Moon Gallery' },
     { img: 'photos/photo4.jpg', emoji: '🌙', caption: '2years-2months Date At Junction City' },
-    { img: 'photos/photo5.jpg', emoji: '🎂', caption: '23th Pyae's Pre-Brithday Date At People's Park' },
+    { img: 'photos/photo5.jpg', emoji: '🎂', caption: "23th Pyae's Pre-Birthday Date At People's Park" },
     { img: 'photos/photo6.jpg', emoji: '📍', caption: 'Our CANVA Sign Date At Technological University Hmawbi' },
-    { img: 'photos/photo7.jpg', emoji: '🫶🫶', caption: 'Pyae's Signature on me Together Forever' },
+    { img: 'photos/photo7.jpg', emoji: '🫶🫶', caption: "Pyae's Signature on me Together Forever" },
     { img: 'photos/photo8.jpg', emoji: '🏡', caption: 'Together 2023/11/04' },
   ]
 };
@@ -943,8 +942,8 @@ const overlay = document.getElementById('overlay');
 function goToScene(from, to, cb){
   overlay.classList.add('fade');
   setTimeout(() => {
-    document.getElementById(from).style.display = 'none';
-    document.getElementById(to).style.display = 'flex';
+    document.getElementById(from).classList.add('scene-hidden');
+    document.getElementById(to).classList.remove('scene-hidden');
     overlay.classList.remove('fade');
     if(cb) cb();
   }, 600);
